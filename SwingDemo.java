@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -120,15 +121,89 @@ public class SwingDemo implements ActionListener{
 		}
 		else if(e.getSource()==b2)
 		{
-			System.out.println("search button clicked");
+			try
+			{
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/java_swingdemo", "root", "");
+				String sql="select * from student where id=?";
+				PreparedStatement pst=con.prepareStatement(sql);
+				pst.setInt(1, Integer.parseInt(t1.getText()));
+				ResultSet rs=pst.executeQuery();
+				if(rs.next())
+				{
+					t2.setText(rs.getString("fname"));
+					t3.setText(rs.getString("lname"));
+					t4.setText(rs.getString("email"));
+					t5.setText(rs.getString("mobile"));
+				}
+				else
+				{
+					t2.setText("");
+					t3.setText("");
+					t4.setText("");
+					t5.setText("");
+					JOptionPane.showMessageDialog(f, "ID Not Found");
+				}
+			}catch(Exception e2)
+			{
+				e2.printStackTrace();
+			}
 		}
 		else if(e.getSource()==b3)
 		{
-			System.out.println("update button clicked");
+			if(t1.getText().equals("") || t2.getText().equals("") || t3.getText().equals("") || t4.getText().equals("") || t5.getText().equals(""))
+			{
+				JOptionPane.showMessageDialog(f, "All fiels Are Mandotory");
+			}
+			else
+			{
+				try {
+					Class.forName("com.mysql.jdbc.Driver");
+					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/java_swingdemo", "root", "");
+					String sql="update student set fname=?,lname=?,email=?,mobile=? where id=?";
+					PreparedStatement pst=con.prepareStatement(sql);
+					pst.setString(1, t2.getText());
+					pst.setString(2, t3.getText());
+					pst.setString(3, t4.getText());
+					pst.setLong(4, Long.parseLong(t5.getText()));
+					pst.setInt(5, Integer.parseInt(t1.getText()));
+					pst.executeUpdate();
+					t2.setText("");
+					t3.setText("");
+					t4.setText("");
+					t5.setText("");
+					JOptionPane.showMessageDialog(f, "Data Updated Successfully");
+				}catch(Exception e2)
+				{
+					e2.printStackTrace();
+				}
+			}
 		}
 		else if(e.getSource()==b4)
 		{
-			System.out.println("delete button clicked");
+			if(t1.getText().equals(""))
+			{
+				JOptionPane.showMessageDialog(f, "ID Is Mandotory");
+			}
+			else
+			{
+				try {
+					Class.forName("com.mysql.jdbc.Driver");
+					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/java_swingdemo", "root", "");
+					String sql="delete  from student where id=?";
+					PreparedStatement pst=con.prepareStatement(sql);
+					pst.setInt(1, Integer.parseInt(t1.getText()));
+					pst.executeUpdate();
+					t2.setText("");
+					t3.setText("");
+					t4.setText("");
+					t5.setText("");
+					JOptionPane.showMessageDialog(f, "Data Deleted Successfully");
+				}catch(Exception e2)
+				{
+					e2.printStackTrace();
+				}
+			}
 		}
 	}
 }

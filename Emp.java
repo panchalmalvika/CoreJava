@@ -22,5 +22,4 @@ public class Emp {
 	public void setSalary(double Salary) {
 		this.Salary = Salary;
 	}
-	
 }

@@ -79,13 +79,14 @@ public class StudentDao {
 				s.setAddress(rs.getString("address"));
 				s.setGender(rs.getString("gender"));
 				s.setEducation(rs.getString("education"));
+				list.add(s);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
-	public static Student getAllStudent(int sid)
+	public static Student getStudent(int sid)
 	{
 		Student s=null;
 		try {

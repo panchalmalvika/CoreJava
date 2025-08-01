@@ -40,5 +40,4 @@ public class MyFilter extends HttpFilter implements Filter {
 	public void init(FilterConfig fConfig) throws ServletException {
 		System.out.println("Filter Intialized");
 	}
-
 }

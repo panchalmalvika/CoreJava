@@ -34,7 +34,7 @@ public class StudentController extends HttpServlet {
 		else if(action.equalsIgnoreCase("edit"))
 		{
 			int sid=Integer.parseInt(request.getParameter("sid"));
-			Student s=StudentDao.getAllStudent(sid);
+			Student s=StudentDao.getStudent(sid);
 			request.setAttribute("s", s);
 			request.getRequestDispatcher("update.jsp").forward(request, response);
 		}

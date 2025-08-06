@@ -9,7 +9,8 @@ abstract class Abs1
 }
 class Abs2 extends Abs1
 {
-	void math2() {
+	void math2() 
+	{
 		System.out.println("Math2 defined in Abs2");
 	}
 }
